@@ -87,6 +87,14 @@ The API is fully documented using Swagger/OpenAPI.
 
 - **To view the Swagger Docs**: Run the development server (`npm run dev`) and navigate to `http://localhost:3000/api/docs` (if implemented) or refer to the `swagger.yaml` file in the repository root. *(Note: Next.js API Routes don't ship with native Swagger UI out-of-the-box, but you can import the provided `swagger.json` / `openapi.yaml` into Postman or Swagger Editor to view all endpoint contracts).*
 
+## 🔑 Test Credentials
+
+If you need to test the application quickly, you can use or register the default Admin account:
+
+- **Email**: `admin@novaiot.com`
+- **Password**: `AdminPassword123!`
+
+*(Note: If the account doesn't exist yet in your local database, use the Register page on the dashboard to create it using these exact credentials and select the ADMIN role).*
 
 ---
 *AI Usage Disclosure: This project was scaffolded and implemented with the assistance of an AI coding agent to rapidly prototype the Next.js and Prisma boilerplate, while ensuring custom business logic and strict RBAC were correctly enforced according to instructions.*
