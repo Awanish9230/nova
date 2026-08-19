@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TECHNICIAN
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum TicketStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  ESCALATED
+}
+
+model User {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  password        String
+  name            String
+  role            Role
+  createdAt       DateTime @default(now())
+  
+  assignedTickets Ticket[] @relation("TechnicianTickets")
+}
+
+model Device {
+  id            String   @id @default(uuid())
+  name          String
+  deviceType    String
+  siteLocation  String   // Expected as lat,lng e.g. "40.7128,-74.0060" for weather API
+  status        String   // e.g. ONLINE, OFFLINE, MAINTENANCE
+  createdAt     DateTime @default(now())
+
+  tickets       Ticket[]
+}
+
+model Ticket {
+  id                   String        @id @default(uuid())
+  device               Device        @relation(fields: [deviceId], references: [id])
+  deviceId             String
+  description          String
+  priority             Priority
+  status               TicketStatus  @default(OPEN)
+  
+  assignedTechnician   User?         @relation("TechnicianTickets", fields: [assignedTechnicianId], references: [id])
+  assignedTechnicianId String?
+
+  createdAt            DateTime      @default(now())
+  slaDueAt             DateTime
+  escalatedAt          DateTime?
+  
+  weatherRiskFlag      String        @default("UNKNOWN") // NONE, CAUTION, SEVERE, UNKNOWN
+
+  @@index([status])
+  @@index([assignedTechnicianId])
+  @@index([deviceId])
+  @@index([slaDueAt])
+}
