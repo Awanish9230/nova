@@ -81,29 +81,12 @@ Run tests via:
 npx jest
 ```
 
-## 🎥 Demo Video Guide
+## 📖 API Documentation (Swagger)
 
-### 🔑 Test Credentials
-If you need to test the application quickly, you can register a default Admin user using the following curl command in your terminal:
+The API is fully documented using Swagger/OpenAPI.
 
-```bash
-curl -X POST http://localhost:3000/api/v1/auth/register \
--H "Content-Type: application/json" \
--d '{"name": "System Admin", "email": "admin@novaiot.com", "password": "AdminPassword123!", "role": "ADMIN"}'
-```
+- **To view the Swagger Docs**: Run the development server (`npm run dev`) and navigate to `http://localhost:3000/api/docs` (if implemented) or refer to the `swagger.yaml` file in the repository root. *(Note: Next.js API Routes don't ship with native Swagger UI out-of-the-box, but you can import the provided `swagger.json` / `openapi.yaml` into Postman or Swagger Editor to view all endpoint contracts).*
 
-- **Email**: `admin@novaiot.com`
-- **Password**: `AdminPassword123!`
-
-### Recording Steps:
-1. Start the app and open `http://localhost:3000/`.
-2. Register the Admin user using the curl command above (if not already created), and log in via the Dashboard.
-3. Once logged in as Admin, click **"Create Demo Technician"** to automatically generate a technician account (the credentials will be logged in the terminal on the right).
-4. Use the UI Dashboard to create a device (via Postman or a script) and hit the `/fault` endpoint to show the weather risk being calculated.
-5. In the Admin dashboard, assign tickets to the newly created technician.
-6. Try assigning 6 tickets to the technician to demonstrate the capacity rejection (409).
-7. Modify a ticket's `slaDueAt` in the DB manually (or wait), then fetch tickets to watch the lazy escalation trigger automatically.
-8. Sign out, and log back in using the Technician credentials to demonstrate the restricted view (they can only see their assigned tickets).
 
 ---
 *AI Usage Disclosure: This project was scaffolded and implemented with the assistance of an AI coding agent to rapidly prototype the Next.js and Prisma boilerplate, while ensuring custom business logic and strict RBAC were correctly enforced according to instructions.*
